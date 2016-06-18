@@ -20,6 +20,9 @@ gulp.task('jsdoc2md-server', shell.task(
 gulp.task('jsdoc2md-api', shell.task(
   ['./node_modules/.bin/jsdoc2md "api/**/*.js" > snhaws-tech-docs/snhawsApiTechDoc.md'])
 );
+gulp.task('jsdoc2md-api-modules', shell.task(
+  ['./node_modules/.bin/jsdoc2md "api-modules/**/*.js" > snhaws-tech-docs/snhawsApiTechDoc.md'])
+);
 
 gulp.task('watch', () => {
   gulp.watch(paths.serverSrc, ['lint', jsDocRun]);

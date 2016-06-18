@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Where the modules are located
-const apiModules = '/ht-modules';
+const apiModules = '../api-modules';
 const _ = require('lodash');
 const modsAutoLoader = require('modules-autoloader');
 
