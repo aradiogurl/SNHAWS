@@ -1,8 +1,8 @@
 const jwt = require('jwt-simple');
-const validateUser = require('./htauth').validateUser;
-const configSecret = require('../config/secret.js');
+const validateUser = require('./mockauth.js').validateUser;
+const configSecret = require('./config/secret.js');
 const validateExports = module.exports = {
-  apiRootName: 'htapi',
+  apiRootName: 'mockapi',
   apiVersion: '1',
 };
 
@@ -58,7 +58,7 @@ validateExports.validateRequest = function validateRequest(url, qry, res, req) {
       if (dbUser) {
         console.log('logged in as ', dbUser);
         if ((req.url.indexOf('admin') >= 0 && dbUser.role === 'admin') ||
-          (req.url.indexOf('admin') < 0 && req.url.indexOf('/htapi/v1/') >= 0)) {
+          (req.url.indexOf('admin') < 0 && req.url.indexOf('/mockapi/v1/') >= 0)) {
           // hmm, what should I do here? there is no moving to the next is there?
           // next could be calling the middlewhere, I think we can do that
           // next(); // To move to next middleware

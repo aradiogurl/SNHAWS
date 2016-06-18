@@ -16,7 +16,6 @@ const httpServerOptions = {
 };
 // Root for file server
 const httpFileRoot = path.join(__dirname, 'htdocs');
-console.info(`http server file root is set to ${httpFileRoot}`);
 
 /**
 * Writes a string of data to the response as a http found 200
@@ -41,7 +40,7 @@ function writeContent(content, type, response) {
 * @param {Object} response The response object
 */
 function display404Message(msg, response) {
-  console.error(`File not found: ${msg}`);
+  console.error(`File not found: ${msg}`); // eslint-disable-line no-console
   response.writeHead(404, { 'Content-Type': 'text/html; charset=UTF-8' });
   response.write('<html><head><title>404 Not Found!</title></head>' +
     '<body><h1>404: Page Not Found!</h1><p>Sorry, but this page could not be found</p>' +
@@ -75,7 +74,7 @@ function processRequestMethod(request, emitter) {
       return emitter.emit('call_api_endpoints', qs.parse(data));
     });
     request.on('error', (e) => {
-      console.error(`ERROR with POST request ${e.message}`);
+      console.error(`ERROR with POST request ${e.message}`); // eslint-disable-line no-console
       return false;
     });
   }
@@ -152,18 +151,20 @@ function processRequest(request, response) {
     });
     const procReqResult = processRequestMethod(request, apiEmitter); // this method is async
     if (procReqResult === false) {
-      console.error('Unable to process request or call api endpoints', request);
+      console.error( // eslint-disable-line no-console
+        'Unable to process request or call api endpoints', request);
     }
   }
 }
 
 // Create the Server
 if (process.env.HTTP2_PLAIN) {
-  console.log('Setting up HTTP2 Plain');
+  console.log('Setting up HTTP2 Plain'); // eslint-disable-line no-console
   http2server = http2.raw.createServer({}, processRequest);
 } else {
-  console.log('Setting up HTTP2 TLS');
+  console.log('Setting up HTTP2 TLS'); // eslint-disable-line no-console
   http2server = http2.createServer(httpServerOptions, processRequest);
 }
-console.info('Launching http2 server on 8080');
+console.log('Launching http2 server on 8080'); // eslint-disable-line no-console
+console.log(`Web server root is set to ${httpFileRoot}`); // eslint-disable-line no-console
 http2server.listen(8080, '127.0.0.1');

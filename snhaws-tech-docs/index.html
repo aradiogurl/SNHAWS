@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Simple Node HTTP2 API and Web Server Index</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cosmo.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">Simple Node HTTP2 API and Web Server</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="mockauth.module_login.html">mockauth.login</a></li><li><a href="mockauth.module_validate.html">mockauth.validate</a></li><li><a href="mockauth.module_validateUser.html">mockauth.validateUser</a></li><li><a href="mockusers.getAll%250AReturns%2520all%2520usersmodule_.html">mockusers.getAll
+Returns all users</a></li><li><a href="mockusers.getOne%250AReturns%2520the%2520users%2520specified%2520by%2520the%2520idmodule_.html">mockusers.getOne
+Returns the users specified by the id</a></li><li><a href="module-HelloWorld.html">HelloWorld</a></li><li><a href="module-switchApiEndpoints.html">switchApiEndpoints</a></li><li><a href="module-users.html">users</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html#common">common</a></li><li><a href="global.html#display404Message">display404Message</a></li><li><a href="global.html#displayMethod">displayMethod</a></li><li><a href="global.html#genToken">genToken</a></li><li><a href="global.html#loadFileRequest">loadFileRequest</a></li><li><a href="global.html#processRequest">processRequest</a></li><li><a href="global.html#processRequestMethod">processRequestMethod</a></li><li><a href="global.html#writeContent">writeContent</a></li><li><a href="global.html#writeJsonMessage">writeJsonMessage</a></li><li><a href="global.html#writeJsonResponse">writeJsonResponse</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<div class="col-sm-3 col-md-3">
+            <form class="navbar-form" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-8">
+	
+		<div id="main">
+			
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+    <section class="readme-section">
+        <article><h1>SNHAWS</h1><p>A Simple Nodejs HTTP2 API and Web Server</p>
+<h2>Purpose</h2><p>A simple Nodejs based HTTP2 API and Web Server, which utilizies the node http2 server module. Provides a semi-dynamic API module infrastructure that supports setting the API path, version, and authentication and authorization support.
+Originally designed for a simple API server project, it has been rebuilt, refined, and grown in capabilities.</p>
+<h2>Current State</h2><p>The Web Server is fully functional, but needs the following features added:</p>
+<h2>Project Goal</h2><p>A functionally complete HTTP2 API and Web server, that provides an easy to use but expandable module infrastructure.</p>
+<h2>License</h2><p>L incensed under the terms of the GNU GPLv3 license. See <a href="LICENSE">LICENSE</a> for more information.</p>
+<h2>Requirements</h2><p>Required packages for the current implementation of the SNHAWS</p>
+<h3>Packages and Dependencies</h3><p>The most up to date list should always be available through the package.json file</p>
+<pre class="prettyprint source lang-json"><code>&quot;engines&quot;: {
+    &quot;node&quot;: &quot;6.2.2&quot;
+},
+&quot;dependencies&quot;: {
+    &quot;eslint-plugin-import&quot;: &quot;1.9.1&quot;,
+    &quot;events&quot;: &quot;1.1.0&quot;,
+    &quot;fs&quot;: &quot;0.0.2&quot;,
+    &quot;http2&quot;: &quot;3.3.4&quot;,
+    &quot;ink-docstrap&quot;: &quot;1.2.1&quot;,
+    &quot;jsdoc&quot;: &quot;3.4.0&quot;,
+    &quot;jsdoc-to-markdown&quot;: &quot;1.3.6&quot;,
+    &quot;jwt-simple&quot;: &quot;0.5.0&quot;,
+    &quot;lodash&quot;: &quot;4.13.1&quot;,
+    &quot;modules-autoloader&quot;: &quot;1.1.1&quot;,
+    &quot;path&quot;: &quot;0.12.7&quot;,
+    &quot;querystring&quot;: &quot;0.2.0&quot;,
+    &quot;request&quot;: &quot;2.72.0&quot;,
+    &quot;sys&quot;: &quot;0.0.1&quot;,
+    &quot;url&quot;: &quot;0.11.0&quot;,
+    &quot;util&quot;: &quot;0.10.3&quot;
+},
+&quot;devDependencies&quot;: {
+    &quot;eslint&quot;: &quot;^2.12.0&quot;,
+    &quot;eslint-config-airbnb&quot;: &quot;^9.0.1&quot;,
+    &quot;eslint-plugin-import&quot;: &quot;^1.9.1&quot;,
+    &quot;eslint-plugin-jsx-a11y&quot;: &quot;^1.4.2&quot;,
+    &quot;eslint-plugin-react&quot;: &quot;^5.1.1&quot;,
+    &quot;gulp-eslint&quot;: &quot;^2.0.0&quot;,
+    &quot;gulp-nodemon&quot;: &quot;^2.1.0&quot;,
+    &quot;gulp-shell&quot;: &quot;^0.5.2&quot;
+  }</code></pre><h2>Initializing the Dev Environment *(Not required when cloning from git)</h2><h3>Install Gulp</h3><p>Gulp is being used in conjunction with gulp-nodeamon to watch for changes and restart the api server.</p>
+<p> npm install --global gulp</p>
+<p>From project directory</p>
+<h3>Install the SNHAWS dependencies</h3><p>npm install</p>
+<h3>GIT Settings</h3><p>Setup your .gitignore to ignore the following files</p>
+<ul>
+<li>node_modules</li>
+<li>npm-debug.log</li>
+</ul>
+<h2>Starting the Simple Nodejs HTTP2 API and Web Server</h2><p>Run gulp</p>
+<p> gulp</p>
+<p>## </p></article>
+    </section>
+
+
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
+	
+
+</div>
+</div>
+
+<div class="modal fade" id="searchResults">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search results</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+
+<footer>
+
+
+	<span class="copyright">
+	SNHAWS Copyright © 2016 The contributors to the SNHAWS project.
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
+	
+		on 2016-06-18T19:28:58-04:00
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+<script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			var id = $( heading ).attr( "id" );
+			return id && id.replace(/\~/g, '-inner-').replace(/\./g, '-static-') || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		SearcherDisplay.init();
+	});
+</script>
+
+</body>
+</html>

@@ -26,21 +26,39 @@ function writeJsonResponse(jsonData, res) {
 }
 
 /**
- * Health Tracker Users Admin
+ * Mock Users Admin
  *
- * @module newJournalEntry
+ * @module users
  *
  * @param {String} url The file/path
  * @param {Object} query The parsed query
  * @param {Object} response The response object
  */
 users = {
-  apiRootName: 'htapi',
+  apiRootName: 'mockapi',
   apiVersion: '1',
+  /**
+   *
+   * @module mockusers.getAll
+   * Returns all users
+   *
+   * @param {string} url The url/path
+   * @param {Object} qry the query object
+   * @param {Object} res the response object
+   */
   getAll: function getAll(url, qry, res) {
     const allusers = data; // Spoof a DB call
     writeJsonResponse(allusers, res);
   },
+  /**
+   *
+   * @module mockusers.getOne
+   * Returns the users specified by the id
+   *
+   * @param {string} url The url/path
+   * @param {Object} qry the query object
+   * @param {Object} res the response object
+   */
   getOne: function getOne(url, qry, res) {
     const id = qry.id;
     let user = ''; // Spoof a DB call

@@ -8,6 +8,8 @@ const paths = {
 // jsdoc tasks that we have later defined and want run with each code change
 const jsDocRun = ['jsdoc', 'jsdoc2md-server', 'jsdoc2md-api'];
 
+gulp.task('firstRun', shell.task(['sh firstrun.sh']));
+
 gulp.task('jsdoc', shell.task(['./node_modules/.bin/jsdoc -c jsdoc.conf -t ' +
   './node_modules/ink-docstrap/template -d snhaws-tech-docs -R ' +
   'README.md -r *.js'])
@@ -48,11 +50,11 @@ gulp.task('lint', () => gulp.src(paths.serverSrc).
 // default task
 gulp.task(
   'default',
-  jsDocRun.concat(
-    [
+  ['firstRun'].concat(
+    jsDocRun.concat([
       'lint',
       'watch',
       'restart-snhaws',
-    ]
+    ])
   )
 );

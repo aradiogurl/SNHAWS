@@ -3,7 +3,7 @@ const _ = require('lodash');
 /* Mock authentication modules */
 
 const jwt = require('jwt-simple');
-const secretFile = require('../config/secret');
+const secretFile = require('./config/secret');
 let auth = {};
 
 function expiresIn(numDays) {
@@ -38,12 +38,12 @@ function writeJsonResponse(jsonData, res) {
 }
 
 auth = {
-  apiRootName: 'htapi',
+  apiRootName: 'mockapi',
   apiVersion: '1',
   /**
    * Login mock function
    *
-   * @module htauth.login
+   * @module mockauth.login
    *
    * @param {String} url The file/path
    * @param {Object} qry The parsed query
@@ -53,7 +53,7 @@ auth = {
     const username = qry.username || '';
     const password = qry.password || '';
     let dbUserObj = {};
-    console.log(`user: ${username} pass: ${password}`);
+    console.log(`Validating user: ${username}`); // eslint-disable-line no-console
     if (username === '' || password === '') {
       writeJsonResponse({
         status: 401,
@@ -79,7 +79,7 @@ auth = {
   /**
    * Validation mock function
    *
-   * @module htauth.validate
+   * @module mockauth.validate
    *
    * @param {String} username The username
    * @param {String} password The password
@@ -99,7 +99,7 @@ auth = {
   /**
    * Validate User mock function
    *
-   * @module htauth.validateUser
+   * @module mockauth.validateUser
    *
    * @param {String} username The username
    */

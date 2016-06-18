@@ -11,7 +11,7 @@ const config = {
   modules: {},
 };
 const modRename = {};
-const modsAuto = modsAutoLoader.getObjects(__dirname + apiModules, config);
+const modsAuto = modsAutoLoader.getObjects(`${__dirname}/${apiModules}`, config);
 const apiLoader = module.exports = {};
 
 // Sets the apiroot and versionk
@@ -50,15 +50,15 @@ apiLoader.switchApiEndpoints = function switchApiEndpoints(epName, query, respon
   // parse the url into the api and filename
   let modRes = false;
   const epArr = epName.split('/');
-  const apiName = epArr[1];
+  const apiRootName = epArr[1];
   const apiVer = epArr[2];
   const servName = epArr[3];
   const ep = epArr[4];
-  if (!_.isUndefined(modRename[apiName][apiVer][servName][ep])) {
+  if (!_.isUndefined(modRename[apiRootName][apiVer][servName][ep])) {
     try {
       // if there is auth
-      const authMeth = _.get(modRename, [apiName, apiVer, servName, 'apiAuthMethod']);
-      const authMod = _.get(modRename, [apiName, apiVer, servName, 'apiAuthModules']);
+      const authMeth = _.get(modRename, [apiRootName, apiVer, servName, 'apiAuthMethod']);
+      const authMod = _.get(modRename, [apiRootName, apiVer, servName, 'apiAuthModules']);
       if (!_.isUndefined(authMeth) && !_.isUndefined(authMod)) {
         if (modsAuto[authMod][authMeth](epName, query, response, request) === false) {
           if (response.finished !== true) {
@@ -67,20 +67,20 @@ apiLoader.switchApiEndpoints = function switchApiEndpoints(epName, query, respon
           return true;
         }
       } else {
-        modRes = modRename[apiName][apiVer][servName][ep](epName, query, response, request);
+        modRes = modRename[apiRootName][apiVer][servName][ep](epName, query, response, request);
       }
       // else if there is not an auth method
       // we should do something with mod res
     } catch (ex) {
-      console.log('catch response write status', response);
+      console.error(`Caught module error ${ex}`); // eslint-disable-line no-console
       if (!_.isUndefined(response.finished) && response.finished !== true) {
-        console.log('running display messages');
         displayMessage(`API Error: ${ex} : ${ex.stack} ${modRes}`, response);
       }
       return true;
     }
   } else {
-    console.log('No such module');
+    console.error( // eslint-disable-line no-console
+      `API Error: No such module:${servName} endpoint:${ep} root:${apiRootName} ver:${apiVer}`);
     return false;
   }
   return true;
