@@ -125,7 +125,6 @@ function processRequest(request, response) {
     }
   }
 }
-
 // Create the Server
 if (process.env.HTTP2_PLAIN) {
   console.log('Setting up HTTP2 Plain'); // eslint-disable-line no-console
