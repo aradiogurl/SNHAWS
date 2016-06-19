@@ -1,5 +1,5 @@
-# SNHAWS
-A Simple Nodejs HTTP2 API and Web Server
+# SNHAWS - Simple HTTP2 API and Web Server
+A Simple Nodejs HTTP2 API and Web Server Project
 
 ## Purpose
 
@@ -8,8 +8,13 @@ Originally designed for a simple API server project, it has been rebuilt, refine
 
 ## Current State
 
-The Web Server is fully functional, but needs the following features added:
+The Web Server is functional, but currently lacking the following planned features:
 
+- Error and Access Logging
+- Configuration file support
+- Custom Error Pages
+- Configurable file Mime-types
+- Documentation on building modules
 
 ## Project Goal
 
@@ -78,6 +83,7 @@ npm install
 Setup your .gitignore to ignore the following files
 - node_modules
 - npm-debug.log
+- snhaws-tech-docs
 
 ## Starting the Simple Nodejs HTTP2 API and Web Server
 Run gulp

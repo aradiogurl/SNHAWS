@@ -7,6 +7,7 @@ const url = require('url');
 const events = require('events');
 const qs = require('querystring');
 const endPoints = require('./api/api-loader.js');
+const common = require('./common-modules/common-web.js'); // load the common methods we call
 
 let http2server;
 // Options for the http2 server
@@ -16,38 +17,6 @@ const httpServerOptions = {
 };
 // Root for file server
 const httpFileRoot = path.join(__dirname, 'htdocs');
-
-/**
-* Writes a string of data to the response as a http found 200
-*
-* @method writeContent
-* @param {String} content The data to write to the response/client
-* @param {String} type The type of data that is being written
-* @param {Object response The response object
-*/
-function writeContent(content, type, response) {
-  response.writeHead(200, { 'Content-Type': type });
-  response.write(content);
-  response.end();
-}
-
-// Send a 404 Not Found status
-/**
-* Writes a http 404 not found error to the response/client
-*
-* @method display404Message
-* @param {String} msg The message to write to the response/client
-* @param {Object} response The response object
-*/
-function display404Message(msg, response) {
-  console.error(`File not found: ${msg}`); // eslint-disable-line no-console
-  response.writeHead(404, { 'Content-Type': 'text/html; charset=UTF-8' });
-  response.write('<html><head><title>404 Not Found!</title></head>' +
-    '<body><h1>404: Page Not Found!</h1><p>Sorry, but this page could not be found</p>' +
-    `<pre>${msg}</pre>` +
-    '</body></html>');
-  response.end();
-}
 
 /**
  * Simple async method to handle POST and GET responses and return both queries in the same format
@@ -107,9 +76,9 @@ function loadFileRequest(fileUrl, response) {
       // Read the file
       fs.readFile(fileUrl, (err, content) => {
         if (err) { // If we couldn't read the file for some reason
-          display404Message(`Error loading file, while reading file ${err.message}`, response);
+          common.write404Message(`Error loading file, while reading file ${err.message}`, response);
         } else { // Otherwise, if the file was read successfully.
-          writeContent(content, type, response);
+          common.writeCustomContent(content, type, response);
         }
       });
       break;
@@ -145,7 +114,7 @@ function processRequest(request, response) {
       const retVal = endPoints.switchApiEndpoints(url.parse(request.url).pathname, queryData,
         response, request);
       if (retVal !== true) { // If the endpoints failed, we return a 404 not found
-        display404Message(`Requested file \n ${workFile} \nnot found`, response);
+        common.write404Message(`Requested file \n ${workFile} \nnot found`, response);
       }
       response.end();
     });
