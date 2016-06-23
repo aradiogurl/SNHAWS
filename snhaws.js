@@ -13,13 +13,10 @@ const common = require('./common-modules/common-web.js'); // load the common met
 let http2server;
 // Options for the http2 server
 const httpServerOptions = {
-  //key: fs.readFileSync(path.join(__dirname, 'keys/htkey.pem')),
   key: fs.readFileSync(path.join(__dirname, config.key)),
-  //cert: fs.readFileSync(path.join(__dirname, 'keys/htcert.pem')),
   cert: fs.readFileSync(path.join(__dirname, config.cert)),
 };
 // Root for file server
-//const httpFileRoot = path.join(__dirname, 'htdocs');
 const httpFileRoot = path.join(__dirname, config.fileRoot);
 
 /**
