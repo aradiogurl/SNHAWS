@@ -2,6 +2,10 @@
 
 # setup the server keys and certs
 serverKeyRoot=keys
+if [ ! -d ${serverKeyRoot} ]
+then
+    mkdir ${serverKeyRoot}
+fi
 if [ ! -f ${serverKeyRoot}/default.key  ]
 then
     echo "Setting up self signed server keys"
@@ -13,6 +17,8 @@ then
     openssl rsa -in default.key.org -out default.key
     openssl x509 -req -days 365 -in default.csr -signkey default.key -out default.crt
     cd ..
+else
+    echo "Keys already setup"
 fi
 
 # sets up the tech document root for SNHAWS
