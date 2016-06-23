@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 // Module dependencies.
+const config = require('./config.json');
 const http2 = require('http2');
 const fs = require('fs');
 const path = require('path');
@@ -12,11 +13,11 @@ const common = require('./common-modules/common-web.js'); // load the common met
 let http2server;
 // Options for the http2 server
 const httpServerOptions = {
-  key: fs.readFileSync(path.join(__dirname, 'keys/htkey.pem')),
-  cert: fs.readFileSync(path.join(__dirname, 'keys/htcert.pem')),
+  key: fs.readFileSync(path.join(__dirname, config.key)),
+  cert: fs.readFileSync(path.join(__dirname, config.cert)),
 };
 // Root for file server
-const httpFileRoot = path.join(__dirname, 'htdocs');
+const httpFileRoot = path.join(__dirname, config.fileRoot);
 
 /**
  * Simple async method to handle POST and GET responses and return both queries in the same format
@@ -125,7 +126,6 @@ function processRequest(request, response) {
     }
   }
 }
-
 // Create the Server
 if (process.env.HTTP2_PLAIN) {
   console.log('Setting up HTTP2 Plain'); // eslint-disable-line no-console
@@ -136,4 +136,4 @@ if (process.env.HTTP2_PLAIN) {
 }
 console.log('Launching http2 server on 8080'); // eslint-disable-line no-console
 console.log(`Web server root is set to ${httpFileRoot}`); // eslint-disable-line no-console
-http2server.listen(8080, '127.0.0.1');
+http2server.listen(config.port, config.ip);

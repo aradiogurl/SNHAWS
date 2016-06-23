@@ -9,6 +9,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/aradiogurl/SNHAWS.git"
+	},
   "engines": {
     "node": "6.2.2"
   },

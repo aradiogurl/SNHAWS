@@ -1,9 +1,9 @@
-# SNHAWS - Simple HTTP2 API and Web Server
+# SNHAWS - Simple Node HTTP2 API and Web Server
 A Simple Nodejs HTTP2 API and Web Server Project
 
 ## Purpose
 
-A simple Nodejs based HTTP2 API and Web Server, which utilizies the node http2 server module. Provides a semi-dynamic API module infrastructure that supports setting the API path, version, and authentication and authorization support.
+A work-in-progress simple Nodejs based HTTP2 API and Web Server, which utilizies the node http2 server module. Provides a semi-dynamic API module infrastructure that supports setting the API path, version, and authentication and authorization support.
 Originally designed for a simple API server project, it has been rebuilt, refined, and grown in capabilities.
 
 ## Current State
